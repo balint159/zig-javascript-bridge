@@ -609,6 +609,10 @@ const builtins = [_][]const u8{
     \\        return this.new_handle(this._decoder.decode(new Uint8Array(this.instance.exports.memory.buffer, ptr, len)));
     \\      },
     ,
+    \\      "await": new WebAssembly.Suspending( async (id) => {
+    \\        return this.new_handle(await this._handles.get(id));
+    \\      }),
+    ,
     \\      "release": (id) => {
     \\        this._handles.delete(id);
     \\      },

@@ -169,6 +169,10 @@ pub const Handle = enum(i32) {
         return handle == .null;
     }
 
+    pub fn await(handle: Handle) Handle {
+        return zjb.await(handle);
+    }
+
     pub fn release(handle: Handle) void {
         if (@intFromEnum(handle) > 2) {
             zjb.release(handle);
@@ -317,6 +321,7 @@ fn mapType(comptime T: type) type {
 }
 
 const zjb = struct {
+    extern "zjb" fn await(id: Handle) Handle;
     extern "zjb" fn release(id: Handle) void;
     extern "zjb" fn string(ptr: [*]const u8, len: u32) Handle;
     extern "zjb" fn dataview(ptr: *const anyopaque, size: u32) Handle;
