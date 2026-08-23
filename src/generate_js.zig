@@ -311,7 +311,7 @@ pub fn main(init: std.process.Init) !void {
 
         try writer.writeAll("      \"");
         try writer.writeAll(name);
-        try writer.writeAll("\": (");
+        try writer.writeAll("\": async (");
 
         for (0..func_args.items.len) |i| {
             if (i > 0) {
@@ -334,9 +334,9 @@ pub fn main(init: std.process.Init) !void {
             },
         }
 
-        try writer.writeAll("this.instance.exports.");
+        try writer.writeAll("WebAssembly.promising(this.instance.exports.");
         try writer.writeAll(func);
-        try writer.writeAll("(");
+        try writer.writeAll(")(");
 
         for (func_args.items, 0..) |arg, i| {
             if (i > 0) {
